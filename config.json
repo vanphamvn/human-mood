@@ -1,0 +1,11 @@
+{
+    "mysql": {
+      "host": "localhost",
+      "user": "root",
+      "password": "",
+      "database": "humanmood",
+      "authPlugin": "mysql_native_password"
+    },
+    "rateLimitingEnabled": true,
+    "maxRequestsPerMinute": 100
+}

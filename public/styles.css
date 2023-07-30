@@ -1,0 +1,55 @@
+/* Add your custom CSS styles here */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  h1,h4 {
+    text-align: center;
+  }
+  
+  #mood-chart {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  #formContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  form {
+    display: flex;
+  }
+
+  /* Add the CSS styles for the buttons and CTA */
+  #ctaMessage {
+    font-size: 20px;
+    margin: 20px 0;
+  }
+
+  button {
+    font-size: 24px;
+    padding: 10px;
+    margin: 5px;
+    color: white;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  button:active {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+
+  #chartDescription {
+    margin-top: 20px;
+    font-size: 16px;
+  }
