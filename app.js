@@ -63,6 +63,9 @@ app.get('/moods', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server started on http://localhost:3000');
+const ipAddress = config.hostIp;
+const port = config.port;
+
+app.listen(port, ipAddress, () => {
+    console.log(`Server is running on ${ipAddress}:${port}`);
 });
