@@ -20,34 +20,19 @@
       <canvas id="chartCanvas"></canvas>
       <div id="chartDescription">This chart displays all users' moods and is updated every 5 seconds.</div>
     </div>
-  <script>
-    // Function to fetch mood data from the server
-    async function fetchMoodData() {
-      try {
-        const response = await fetch('/moods');
-        const data = await response.json();
-        displayMoodChart(data);
-      } catch (error) {
-        console.error('Error fetching mood data:', error);
-      }
-    }
-  
-    // Function to display the mood data as a trend chart using Chart.js
-    function displayMoodChart(moods) {
+    
+    <script>
       const chartCanvas = document.getElementById('chartCanvas').getContext('2d');
-      const moodLabels = moods.map((mood) => mood.mood);
-      const moodCounts = moods.map((mood) => mood.count);
-  
-      const defaultCounts = Array(moodLabels.length).fill(0); // Create an array with 0 values
-  
-      new Chart(chartCanvas, {
+      const defaultCounts = Array(4).fill(0); // Create an array with 0 values
+    
+      const moodChart = new Chart(chartCanvas, {
         type: 'bar',
         data: {
-          labels: moodLabels,
+          labels: ['happy', 'sad', 'angry', 'neutral'],
           datasets: [
             {
               label: 'Mood Trend',
-              data: moods.length ? moodCounts : defaultCounts, // Use defaultCounts if no data
+              data: defaultCounts,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.7)',
                 'rgba(54, 162, 235, 0.7)',
@@ -72,17 +57,34 @@
           },
         },
       });
-    }
-  
-    // Function to update the chart every few seconds
-    function updateChart() {
+    
+      // Function to fetch mood data from the server
+      async function fetchMoodData() {
+        try {
+          const response = await fetch('/moods');
+          const data = await response.json();
+          updateChartData(data);
+        } catch (error) {
+          console.error('Error fetching mood data:', error);
+        }
+      }
+    
+      // Function to update the chart's data
+      function updateChartData(moods) {
+        const moodCounts = moods.map((mood) => mood.count);
+        moodChart.data.datasets[0].data = moods.length ? moodCounts : defaultCounts;
+        moodChart.update();
+      }
+    
+      // Function to update the chart every few seconds
+      function updateChart() {
+        fetchMoodData();
+      }
+    
+      // Fetch initial data and update chart every 5 seconds
       fetchMoodData();
-    }
-  
-    // Fetch initial data and update chart every 5 seconds
-    fetchMoodData();
-    setInterval(updateChart, 5000);
-  </script>
+      setInterval(updateChart, 5000);
+    </script>
   
 </body>
 </html>
