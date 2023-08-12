@@ -1,11 +1,13 @@
 {
-    "mysql": {
-      "host": "localhost",
-      "user": "root",
-      "password": "",
-      "database": "humanmood",
-      "authPlugin": "mysql_native_password"
-    },
-    "rateLimitingEnabled": true,
-    "maxRequestsPerMinute": 100
+  "mysql": {
+    "host": "",
+    "user": "",
+    "password": "",
+    "database": "",
+    "authPlugin": "mysql_native_password"
+  },
+  "rateLimitingEnabled": true,
+  "maxRequestsPerMinute": 100,
+  "hostIp":"153.92.1.81",
+  "port":3000
 }
