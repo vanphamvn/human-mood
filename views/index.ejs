@@ -24,6 +24,11 @@
     <script>
       const chartCanvas = document.getElementById('chartCanvas').getContext('2d');
       const moodLabels = ['happy', 'sad', 'angry', 'neutral'];
+      const moodIndexMap = {}; // To map mood labels to their indices
+      moodLabels.forEach((label, index) => {
+        moodIndexMap[label] = index;
+      });
+    
       const defaultCounts = Array(moodLabels.length).fill(0);
     
       const moodChart = new Chart(chartCanvas, {
@@ -76,8 +81,8 @@
     
         // Map the mood counts based on their corresponding labels
         moods.forEach((mood) => {
-          const index = moodLabels.indexOf(mood.mood);
-          if (index !== -1) {
+          const index = moodIndexMap[mood.mood];
+          if (index !== undefined) {
             moodCounts[index] = mood.count;
           }
         });
