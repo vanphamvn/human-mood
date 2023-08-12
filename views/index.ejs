@@ -9,7 +9,7 @@
 <body>
     <div id="ctaMessage">Let us know how you're feeling right now</div>
     <div id="formContainer">
-      <form action="/submit-mood" method="post">
+      <form id="moodForm">
         <button type="submit" name="mood" value="happy" style="background-color: rgba(255, 99, 132, 0.7);">😄</button>
         <button type="submit" name="mood" value="sad" style="background-color: rgba(54, 162, 235, 0.7);">😢</button>
         <button type="submit" name="mood" value="angry" style="background-color: rgba(255, 206, 86, 0.7);">😠</button>
@@ -84,6 +84,26 @@
       // Fetch initial data and update chart every 5 seconds
       fetchMoodData();
       setInterval(updateChart, 5000);
+
+      // Attach event listeners to the mood buttons
+      const moodButtons = document.querySelectorAll('#moodForm button');
+      moodButtons.forEach((button) => {
+        button.addEventListener('click', async (event) => {
+          const mood = event.target.value;
+          try {
+            await fetch('/submit-mood', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: `mood=${encodeURIComponent(mood)}`,
+            });
+            fetchMoodData();
+          } catch (error) {
+            console.error('Error submitting mood:', error);
+          }
+        });
+      });
     </script>
   
 </body>
