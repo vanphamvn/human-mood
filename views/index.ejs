@@ -23,12 +23,13 @@
     
     <script>
       const chartCanvas = document.getElementById('chartCanvas').getContext('2d');
-      const defaultCounts = Array(4).fill(0); // Create an array with 0 values
+      const moodLabels = ['happy', 'sad', 'angry', 'neutral'];
+      const defaultCounts = Array(moodLabels.length).fill(0);
     
       const moodChart = new Chart(chartCanvas, {
         type: 'bar',
         data: {
-          labels: ['happy', 'sad', 'angry', 'neutral'],
+          labels: moodLabels,
           datasets: [
             {
               label: 'Mood Trend',
@@ -71,8 +72,17 @@
     
       // Function to update the chart's data
       function updateChartData(moods) {
-        const moodCounts = moods.map((mood) => mood.count);
-        moodChart.data.datasets[0].data = moods.length ? moodCounts : defaultCounts;
+        const moodCounts = Array(moodLabels.length).fill(0); // Initialize the counts array
+    
+        // Map the mood counts based on their corresponding labels
+        moods.forEach((mood) => {
+          const index = moodLabels.indexOf(mood.mood);
+          if (index !== -1) {
+            moodCounts[index] = mood.count;
+          }
+        });
+    
+        moodChart.data.datasets[0].data = moodCounts;
         moodChart.update();
       }
     
@@ -84,7 +94,7 @@
       // Fetch initial data and update chart every 5 seconds
       fetchMoodData();
       setInterval(updateChart, 5000);
-
+    
       // Attach event listeners to the mood buttons
       const moodButtons = document.querySelectorAll('#moodForm button');
       moodButtons.forEach((button) => {
@@ -105,6 +115,7 @@
         });
       });
     </script>
+    
   
 </body>
 </html>
