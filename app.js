@@ -5,7 +5,7 @@ const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const app = express();
 
-const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+const config = JSON.parse(fs.readFileSync('configuration.json', 'utf8'));
 const connection = mysql.createConnection(config.mysql);
 
 
